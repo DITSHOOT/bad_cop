@@ -67,6 +67,31 @@ bot.on('guildMemberAdd', member => {
 
 
 
+const vilainsMots = ['putain', 'ta mere', 'ta mère', 'pute', 'fdp', 'fils de pute']; // Ajoutez ici la liste de mots que vous souhaitez détecter
+
+const phrasesReponses = [
+  "Hé, mec, t'as cru quoi ? T'as pas d'impunité ici. Les règles sont strictes, et ça, ça passera pas. C'est clair ?",
+  "Hey, on est pas en train de jouer à cache-cache ici. Si tu cherches à contourner la loi, tu vas vite déchanter, parce que ça, ça passera pas. Capiche ?",
+  "Mon pote, tu peux pas faire n'importe quoi dans ce coin. On est vigilants, et si tu crois que ça, ça passera pas, tu te fourres le doigt dans l'œil. Fais gaffe à toi.",
+  "Alors, t'as cru que t'étais au-dessus des lois, hein ? Non, non, non, ici, ça, ça passera pas, que t'en sois bien conscient. On veille au grain, mec.",
+  "Hé, écoute-moi bien, mon pote. On peut faire des conneries dans ce quartier, ouais, mais faut pas croire que ça, ça passera pas. Les règles sont claires ici, et on veille au grain. Alors, t'as deux choix : tu te tiens à carreau et tu respectes les lois, ou bien tu vas goûter à la justice du quartier. Et je peux te garantir que ça, ça passera pas. Alors, à toi de voir comment tu veux jouer ton coup, mec."
+];
+
+bot.on('messageCreate', (message) => {
+  if (message.author.bot) return; // Ignorer les messages des bots
+  const messageContent = message.content.toLowerCase(); // Convertir le message en minuscules pour une correspondance insensible à la casse
+
+  for (const vilainMot of vilainsMots) {
+    if (messageContent.includes(vilainMot)) {
+      // Si le message contient un mot inapproprié
+      const reponseAleatoire = phrasesReponses[Math.floor(Math.random() * phrasesReponses.length)];
+      message.reply(reponseAleatoire);
+      break; // Arrêter la boucle après avoir trouvé un mot inapproprié
+    }
+  }
+});
+
+
 
 bot.on('messageCreate', (message) => {
   if (message.author.bot) return; // Ne répondez pas aux messages des bots
