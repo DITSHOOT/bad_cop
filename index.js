@@ -57,7 +57,7 @@ bot.on('guildMemberAdd', member => {
 
 
   // Remplacez 'ID_DU_CANAL' par l'ID du canal où vous souhaitez envoyer le message.
-  const channel = member.guild.channels.cache.get('1163902591768477776');
+  const channel = member.guild.channels.cache.get('1163482473880092692');
   //   const channel = member.guild.channels.cache.find(ch => ch.name === '🎉-accueil-🤝');
 
   if (channel) {
