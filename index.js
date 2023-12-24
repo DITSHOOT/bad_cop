@@ -45,6 +45,32 @@ bot.on('ready', () => {
   },3600000);
 });
 
+bot.on('messageCreate', async (message) => {
+  if (message.content.startsWith(config.prefix + 'annonce')) {
+    message.delete(); // suppression du message direct
+
+    const reminderEmbed = new Discord.EmbedBuilder()
+    .setTitle('<:cfai_hellochristmas:1163457612390608908> Bon Réveillon les Babouins ! <:cfai_hellochristmas:1163457612390608908>')
+    .setDescription(
+      "**ÉCOUTEZ-MOI BIEN, LES BABOUINS !**\n"
+      + "C'est le moment de briller, de faire péter la vibe et de passer le meilleur réveillon de votre vie ! <a:booooooooooom:1188517382650609704>\n\n"
+      + "On ne veut que des sourires, des rires, et de la folie !\nPréparez-vous à vivre une soirée **MÉ-MO-RA-BLE**, parce qu'on est les **ROIS** de cette année qui arrive. <:goit:1188516742817927299>\n\n"
+      + "Alors, secouez-vous, enfilez vos plus beaux habits de fête, et préparez-vous à **DOMINER 2024** comme jamais et manger tel de vrais babouins ! <a:vibes_cfai:1188518067131650078>\n\n"
+      + "<a:staarrrrssss_cfai:1188517698473304224> **JOYEUX RÉVEILLON, BANDE DE CHAMPIONS !** <a:staarrrrssss_cfai:1188517698473304224>"
+  )
+    .setColor('#FF5733') // Couleur orange énergique
+    .setImage('https://media.giphy.com/media/HBMCmtsPEUShG/giphy.gif')
+    .setFooter({
+      text: `${message.guild.name} - ${new Date().toLocaleString()}`,
+      iconURL: message.guild.iconURL({ dynamic: true, format: 'png', size: 1024 })
+    });
+
+  // Ensuite, vous pouvez envoyer cet embed dans un canal spécifique :
+  await message.channel.send({ embeds: [reminderEmbed] });
+  message.channel.send('@everyone');
+}
+});
+
 
 
 bot.on('guildMemberAdd', member => {
