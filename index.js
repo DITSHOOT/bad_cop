@@ -31,6 +31,20 @@ let status = [
 ]
 
 
+const channelId = '1204073066125336626';
+
+// Définir le client Discord
+const client = new Discord.Client();
+
+// Définir l'événement 'message'
+client.on('message', message => {
+  // Vérifier si le message est dans le salon spécifié
+  if (message.channel.id === channelId) {
+    // Supprimer le message
+    message.delete();
+  }
+});
+
 bot.on('ready', () => {
   const channel = bot.channels.cache.get('1163902591768477776');
   if (!channel) return console.error('Le salon spécifié est introuvable.');
