@@ -40,7 +40,7 @@ bot.on('message', (message) => {
         }, 5000);
     }
 
-
+  
 
 bot.on('ready', () => {
   const channel = bot.channels.cache.get('1163902591768477776');
