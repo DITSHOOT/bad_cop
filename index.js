@@ -32,11 +32,10 @@ let status = [
 
 // Définir l'événement 'message'
 bot.on('message', message => {
-const channelId = '1204073066125336626';
   // Vérifier si le message est dans le salon spécifié
-  if (message.channel.id === channelId) {
+  if (message.channel.id === '1204073066125336626') {
     // Supprimer le message
-    message.delete();
+    message.delete().catch(console.error); // Gérer les erreurs de suppression
   }
 });
 
