@@ -37,7 +37,7 @@ const channelId = '1204073066125336626';
 const client = new Discord.Client();
 
 // Définir l'événement 'message'
-client.on('message', message => {
+bot.on('message', message => {
   // Vérifier si le message est dans le salon spécifié
   if (message.channel.id === channelId) {
     // Supprimer le message
