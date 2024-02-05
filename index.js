@@ -31,13 +31,15 @@ let status = [
 ]
 
 // Définir l'événement 'message'
-bot.on('message', message => {
-  // Vérifier si le message est dans le salon spécifié
-  if (message.channel.id === '1204073066125336626') {
-    // Supprimer le message
-    message.delete().catch(console.error); // Gérer les erreurs de suppression
-  }
-});
+bot.on('message', (message) => {
+    // Vérifie si le message a été envoyé dans le salon désiré et n'est pas un message du bot
+    if (message.channel.id === '1204073066125336626' && !message.author.bot) {
+        // Supprime le message après 5 secondes (5000 millisecondes)
+        setTimeout(() => {
+            message.delete().catch(err => console.error(err));
+        }, 5000);
+    }
+
 
 bot.on('ready', () => {
   const channel = bot.channels.cache.get('1163902591768477776');
