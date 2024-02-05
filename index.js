@@ -41,6 +41,7 @@ bot.on('message', (message) => {
     }
 
 
+
 bot.on('ready', () => {
   const channel = bot.channels.cache.get('1163902591768477776');
   if (!channel) return console.error('Le salon spécifié est introuvable.');
