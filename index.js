@@ -45,6 +45,71 @@ bot.on('ready', () => {
   },3600000);
 });
 
+bot.on('messageCreate', (message) => {
+  const channelIDMEME = "1204073066125336626";
+  // console.log(`Tentative d'envoi de message de ${message.author.tag}`);
+  if (message.author.bot) return; // Ignorer les messages des bots
+  if (message.channel.id === channelIDMEME && message.content && !message.attachments.size) {
+    // Si le message est dans le salon spécifique, contient du texte, mais n'a pas d'attachements (images)
+    message.delete();
+
+    const channelMention = message.channel.toString();
+    
+    const embed = new Discord.EmbedBuilder()
+      .setColor('#FF5733')
+      .setTitle(`<a:rappel:1185911636565954620> ${channelMention}<a:rappel:1185911636565954620>`)
+      .setDescription("<a:no_cfai:1204156980130746478> **Interdiction d'envoyer des messages**. <a:no_cfai:1204156980130746478>\n\n" +
+                      "<:check_cfai:1204157780534235217> Envoyer uniquement des **fichiers** !")
+      .setThumbnail('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNW41Y3N2M3gwOTZtY2VwYm13dXR5bTA4dXkxNmcxbDE5c3IycXNuMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/cIVzLZ6TioCVXvhZdV/source.gif');
+
+    message.author.send({ embeds: [embed] });
+  }
+});
+
+
+
+bot.on('messageCreate', (message) => {
+  if (message.author.bot) return; // Ignorer les messages des bots
+
+  // Vérifier si le message commence par le préfixe et l'utilisateur a la permission de gérer les messages
+  if (message.content.startsWith(config.prefix) && message.member.permissions.has('MANAGE_MESSAGES')) {
+    const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+    const command = args.shift().toLowerCase();
+
+    if (command === 'clear') {
+      // Vérifier si un nombre d'arguments a été fourni
+      if (!args.length) {
+        return message.reply('Veuillez spécifier le nombre de messages à supprimer.');
+      }
+
+      // Convertir le nombre d'arguments en un nombre entier
+      const amount = parseInt(args[0]);
+
+      // Vérifier si "amount" est un nombre valide
+      if (isNaN(amount) || amount <= 0 || amount > 100) {
+        return message.reply('Veuillez spécifier un nombre entre 1 et 100.');
+      }
+
+            // Supprimer les messages
+            message.channel.bulkDelete(amount)
+            .then(() => {
+              message.channel.send(`<:cfai_pikasmirk:1163457620200394833> ***__${amount}__*** ***messages ont été supprimés.***`)
+                .then((msg) => {
+                  // Supprimer le message après 5 secondes
+                  setTimeout(() => {
+                    msg.delete();
+                  }, 5000);
+                });
+            })
+        .catch((error) => {
+          console.error(error);
+          message.channel.send('Une erreur s\'est produite lors de la suppression des messages.');
+        });
+    }
+  }
+});
+
+
 bot.on('messageCreate', async (message) => {
   if (message.content.startsWith(config.prefix + 'annonce')) {
     message.delete(); // suppression du message direct
